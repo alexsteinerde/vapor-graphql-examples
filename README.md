@@ -56,6 +56,7 @@ mutation createUser {
     id
     name
     createdAt
+    currentTodo {title}
   }
 }
 
@@ -82,6 +83,18 @@ mutation createTag {
 # Assign a tag to a todo item
 mutation addTag2Todo($todoId: UUID!, $tagId: UUID!) {
   addTagToTodo(tagID: $tagId, todoID: $todoId)
+}
+
+mutation login {
+  login(username:"hello1")
+}
+
+mutation logout {
+  logout
+}
+
+query isAuthenticated {
+  isAuthenticated
 }
 ```
 

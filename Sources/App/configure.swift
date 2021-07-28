@@ -14,7 +14,11 @@ public func configure(_ app: Application) throws {
     try app.autoMigrate().wait()
 
     // Register the schema and its resolver.
-    app.register(graphQLSchema: todoSchema, withResolver: TodoResolver())
+    app.grouped([
+        app.sessions.middleware,
+        UserSessionAuthenticator(),
+    ])
+    .register(graphQLSchema: todoSchema, withResolver: TodoResolver())
 
     // Enable GraphiQL web page to send queries to the GraphQL endpoint
     if !app.environment.isRelease {

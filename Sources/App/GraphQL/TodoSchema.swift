@@ -34,6 +34,7 @@ let todoSchema = try! Schema<TodoResolver, Request> {
         Field("users", at: TodoResolver.getAllUsers)
         Field("todos", at: TodoResolver.getAllTodos)
         Field("tags", at: TodoResolver.getAllTags)
+        Field("currentAuthSession", at: TodoResolver.currentAuthSession)
     }
 
     // Both mutations accept arguments.
@@ -65,5 +66,11 @@ let todoSchema = try! Schema<TodoResolver, Request> {
             Argument("tagID", at: \.tagID)
             Argument("todoID", at: \.todoID)
         }
+        
+        Field("login", at: TodoResolver.login) {
+            Argument("username", at: \.username)
+        }
+        
+        Field("logout", at: TodoResolver.logout)
     }
 }
