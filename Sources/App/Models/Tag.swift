@@ -20,6 +20,9 @@ final class Tag: Model {
     @Group(key: "tag_info")
     public var tagInfo: TagInfo
     
+    @Enum(key: "priority")
+    public var priority: TagPriority
+    
     init() { }
 
     /// Creates a new `Todo`.
@@ -27,7 +30,14 @@ final class Tag: Model {
         self.id = id
         self.title = title
         self.tagInfo = .init()
+        self.priority = .medium
     }
+}
+
+enum TagPriority: String, Codable, CaseIterable {
+    case low
+    case medium
+    case high
 }
 
 final class TagInfo: Fields {

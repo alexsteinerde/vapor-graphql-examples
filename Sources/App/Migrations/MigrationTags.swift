@@ -7,6 +7,7 @@ struct MigrateTags: Migration {
             .field("title", .string, .required)
             .field("tag_info_color", .string, .required)
             .field("tag_info_size", .int, .required)
+            .field("priority", .enum(.init(name: "priority", cases: ["low", "medium", "high"])), .required)
             .create()
     }
 

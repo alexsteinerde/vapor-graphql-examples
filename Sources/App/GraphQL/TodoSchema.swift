@@ -6,6 +6,8 @@ import Vapor
 let todoSchema = try! Schema<TodoResolver, Request> {
     Scalar(UUID.self)
     DateScalar(formatter: ISO8601DateFormatter())
+    
+    Enum(TagPriority.self)
 
     // Todo type with it's fields
     Type(Todo.self) {
@@ -33,6 +35,7 @@ let todoSchema = try! Schema<TodoResolver, Request> {
         Field("title", at: \.title)
         Field("todos", with: \.$todos)
         Field("tagInfo", at: \.tagInfo)
+        Field("priority", at: \.priority)
     }
 
     // We only have one single query: Getting all existing todos
