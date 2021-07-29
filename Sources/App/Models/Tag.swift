@@ -17,12 +17,33 @@ final class Tag: Model {
     @Siblings(through: TodoTag.self, from: \.$tag, to: \.$todo)
     public var todos: [Todo]
     
+    @Group(key: "tag_info")
+    public var tagInfo: TagInfo
+    
     init() { }
 
     /// Creates a new `Todo`.
     init(id: UUID? = nil, title: String) {
         self.id = id
         self.title = title
+        self.tagInfo = .init()
     }
 }
 
+final class TagInfo: Fields {
+    init() {
+        self.color = "red"
+        self.size = 0
+    }
+    
+    internal init(color: String, size: Int) {
+        self.color = color
+        self.size = size
+    }
+    
+    @Field(key: "color")
+    var color: String
+    
+    @Field(key: "size")
+    var size: Int
+}

@@ -23,10 +23,16 @@ let todoSchema = try! Schema<TodoResolver, Request> {
         Field("currentTodo", with: \.$currentTodo)
     }
     
+    Type(TagInfo.self) {
+        Field("color", at: \.color)
+        Field("size", at: \.size)
+    }
+    
     Type(Tag.self) {
         Field("id", at: \.id)
         Field("title", at: \.title)
         Field("todos", with: \.$todos)
+        Field("tagInfo", at: \.tagInfo)
     }
 
     // We only have one single query: Getting all existing todos

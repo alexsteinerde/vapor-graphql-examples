@@ -5,6 +5,8 @@ struct MigrateTags: Migration {
         return database.schema(Tag.schema)
             .id()
             .field("title", .string, .required)
+            .field("tag_info_color", .string, .required)
+            .field("tag_info_size", .int, .required)
             .create()
     }
 
