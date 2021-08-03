@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
@@ -16,12 +16,18 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0"),
 
         // 🌐 GraphQL
-        .package(url: "https://github.com/alexsteinerde/graphql-kit.git", from: "2.3.0"), // Vapor Utilities
-        .package(url: "https://github.com/alexsteinerde/graphiql-vapor.git", from: "2.0.0"), // Web Query Page
+        .package(name: "GraphQLKit", url: "https://github.com/alexsteinerde/graphql-kit.git", from: "2.3.0"), // Vapor Utilities
+        .package(name: "GraphiQLVapor",  url: "https://github.com/alexsteinerde/graphiql-vapor.git", from: "2.0.0"), // Web Query Page
     ],
     targets: [
-        .target(name: "App", dependencies: ["Fluent", "FluentSQLiteDriver", "Vapor", "GraphQLKit", "GraphiQLVapor"]),
-        .target(name: "Run", dependencies: ["App"]),
-        .testTarget(name: "AppTests", dependencies: ["App"])
+        .target(name: "App", dependencies: [
+            .product(name: "Fluent", package: "fluent"),
+            .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
+            .product(name: "Vapor", package: "vapor"),
+            .product(name: "GraphQLKit", package: "GraphQLKit"),
+            .product(name: "GraphiQLVapor", package: "GraphiQLVapor"),
+        ]),
+        .executableTarget(name: "Run", dependencies: [.target(name: "App")]),
+        .testTarget(name: "AppTests", dependencies: [.target(name: "App")])
     ]
 )
